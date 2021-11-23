@@ -3,9 +3,9 @@
 
 import * as React from 'react'
 
-function Greeting() {
+function Greeting({initialName = ''}) {
   // Tell React to maintain a State by using the React.useState() hook
-  const [name, setName] = React.useState('')
+  const [name, setName] = React.useState(initialName)
 
   function handleChange(event) {
     // Update state using function provided by useState hook
@@ -16,7 +16,7 @@ function Greeting() {
     <div>
       <form>
         <label htmlFor="name">Name: </label>
-        <input onChange={handleChange} id="name" />
+        <input onChange={handleChange} id="name" value={name} />
       </form>
       {name ? <strong>Hello {name}</strong> : 'Please type your name'}
     </div>
@@ -24,7 +24,8 @@ function Greeting() {
 }
 
 function App() {
-  return <Greeting />
+  // Pass a initialName prop
+  return <Greeting initialName="Tanmoy" />
 }
 
 export default App
