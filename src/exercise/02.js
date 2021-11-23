@@ -4,11 +4,15 @@
 import * as React from 'react'
 
 function useLocalStorageState(initialState = '', key) {
-  const [state, setState] = React.useState(
-    () => window.localStorage.getItem(key) || initialState,
-  )
+  const [state, setState] = React.useState(() => {
+    const stateFromLocalStorage = window.localStorage.getItem(key)
+    if (stateFromLocalStorage) {
+      return JSON.parse(stateFromLocalStorage)
+    }
+    return initialState
+  })
   React.useEffect(() => {
-    window.localStorage.setItem(key, state)
+    window.localStorage.setItem(key, JSON.stringify(state))
   }, [state, key])
   return [state, setState]
 }
@@ -31,7 +35,7 @@ function Greeting({initialName = ''}) {
 }
 
 function App() {
-  return <Greeting />
+  return <Greeting initialName="Tanmoy" />
 }
 
 export default App
