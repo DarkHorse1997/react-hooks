@@ -28,7 +28,7 @@ function PokemonInfo({pokemonName}) {
       .catch(error => {
         setState({...state, error: error, status: 'rejected'})
       })
-  }, [pokemonName])
+  }, [pokemonName, state])
 
   if (state.status === 'rejected')
     return (
